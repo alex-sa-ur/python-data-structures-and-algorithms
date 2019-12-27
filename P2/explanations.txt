@@ -1,0 +1,107 @@
+
+Author: Alejandro Sanchez Uribe
+Date: 18 Dec 2019
+
+----------
+Problem 1:
+----------
+The solution to this problem implements a binary search method to achieve the desired time complexity of O(log(n)). The
+function calculates a midpoint for the search, which initially is the average between 1 and the input number. That
+midpoint is checked to see if it is the square root. If the square value of the midpoint is too low, then this
+midpoint is used as the lower bound to identify the next binary search block and corresponding midpoint. If it is too
+high, then it is used as upper bound for the next midpoint calculation.
+
+Since the value for the output is a floored int squared value, the value of the output variable is assigned within the
+result < number code block.
+
+Space complexity of this solution is constant, O(1).
+
+----------
+Problem 2:
+----------
+This solution also implements a binary search. Each iteration of the search removes half of the remaining potential
+locations of the target number, therefore it achieves a time complexity of O(log(n)). The decision to move either to the
+left or the right of the midpoint can't be done based on the usual criteria of 'less than or greater than' since the
+array is not perfectly sorted. Therefore the algorithm must check to see if the left or right of the array is sorted
+without the presence of the rotation point. If it is sorted perfectly between the start point and the midpoint, the
+algorithm then checks to see if the given number would be on that side based on the range of start <= number < midpoint.
+If it is, then it searches on the left side, else it searches to the right side. The same process is performed on the
+other side, switching the values of comparisons and resulting search block accordingly.
+
+Space complexity of this solution is constant, O(1).
+
+----------
+Problem 3:
+----------
+In order to obtain the highest values possible, I came up with the idea to take the values from highest to lowest and
+construct two numbers with the digits by interchanging the target number to add the digit to.
+
+Ex. the values [1,2,3,4,5] would first take the 5 and 4 to make two separate numbers [5,4], then 3 and 2 would be added
+as such: [53,42]. finally the one would be added to the first value [531, 42].
+
+The first step to achieve this is to sort the numbers. I chose to use mergesort for its constant O(n log (n)) notation,
+unlike quicksort which has the capability of worst case scenario O(n^2). Once they are sorted, the sorted list is
+iterated through using a for loop, which takes even numbered items and places them in one list and odd numbered items in
+another list. These lists are then used to combine the digits in the order they were added, to form the output values.
+This list iteration has a time complexity of O(n), therefore the overall time complexity remains at O(n log (n))
+
+Space complexity of this solution is O(n) due to the auxiliary arrays used by mergesort, and the call stack of
+mergesort's recursive nature.
+
+----------
+Problem 4:
+----------
+Since the array will only contain a mix of three different known values, [0,1,2], it is possible to sort in one
+traversal by iterating through each element and determining where it will go based on its value. The easiest values to
+sort are the values on the sides, 0 and 2, since it is easy to keep track where they are going (on either side of the
+array). If both of these values are sorted, then the 1s will sort themselves. Each iteration will take the value and
+may swap its place with the corresponding index of either the next_zero or next_two if applicable. If a swap is done,
+the value of that next_ index will move up or down by one depending on the side of the list. All of these operations
+are done in linear time O(n), within its single traversal through the array.
+
+The changes are done in place, therefore the space complexity of this solution is O(1).
+
+----------
+Problem 5:
+----------
+The Trie insert function has a time complexity of O(n) as it must iterate through every character in the word to search
+though a dictionary (which has its own time complexity of O(1)) and add the new value under it. The find function also
+has a time complexity of O(n) for it also makes use of a loop to find its way down to the trie in search of each prefix.
+The suffix function of the TrieNode has a time complexity of O(n) as it calls itself for every character in the list of
+child prefixes.
+
+In terms of space complexity, the find function is done in O(1) as the search is done without any external auxiliary
+elements. The insert function has a complexity of O(n) as each letter gets its own 'bucket' in the dictionary at each
+level, therefore each new letter may have the capacity to increase the amount of space used by said dictionary. The
+suffix function has a time complexity of O(n) due to the call stack for the recursion and the increasing size of the
+suffix_lst attribute.
+
+----------
+Problem 6:
+----------
+Sorting usually takes a time complexity of O(n log (n)), and the desired time complexity is O(n). Since a sorted list is
+not required as part of the output, it is possible to achieve a solution with the necessary time complexity without
+sorting. For this solution, the first value of the list must be assigned to a pair of minimum and maximum values. Then
+traversing the list once and comparing the current values of minimum and maximum to the current list value, by the end
+of the traversal the values of minimum and maximum will be their corresponding values from the list and they can be
+returned as a tuple. The solution also doesn't require additional space depending on the input, therefore the space
+complexity of this solution is constant, O(1).
+
+----------
+Problem 7:
+----------
+Just like in the previous trie problem, the time and space complexities are as follows:
+- insert function is O(n) for time and space
+- find is O(n) for time, and O(1) for space
+
+The split path function was designed based on the strip and split functions to remove '/'s from the front and back, and
+to return a list that splits the paths into the necessary portions to traverse through the trie. This has a time
+complexity of O(n) due to the size of the input string impacting the amount of iterations the built in function must
+run through to strip and split the elements. The space complexity of this portion is also O(n) as the size of the output
+list depends on the input size (primarily by the amount of '/'s, not the length of the string)
+
+The addhandler and lookup functions are directly linked to the insert and find functions respectively. Independently,
+they both have a time and space complexity of O(1). However if added together with the insert and find functions, this
+portion of the solution remains as:
+- addhandler O(n) for time and space
+- lookup O(n) for time, and O(1) for space
