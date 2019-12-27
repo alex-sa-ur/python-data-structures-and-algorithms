@@ -1,0 +1,47 @@
+Solution by:    Alejandro Sanchez Uribe
+Date:           7 Dec 2019
+
+Big O Notations
+
+- Task 0:   The task solution's Big O Notation is O(4), simplified as O(1) as it has no input dependent operations.
+
+- Task 1:   The task solution's Big O Notation is O(6n + 2), a linear relationship O(n), since the number of text and
+            call records impact the amount of iterations the code must run through. 4n denotes change of value in the
+            for loop and the two index calls made per each of the two lists within the for loop. The 2 denotes the
+            instantiation of the set and the print function.
+
+            There is no real worst or best case scenario, as the code will run through all numbers regardless to check
+            if they are on the set.
+
+- Task 2:   Task 2's solution also has a Big O Notation of a linear nature, more specifically O(8n + 3). The 8 is
+            denoted from the loop statements, the two condition checks and two lines resulting from those checks for
+            every input in the first loop, the conditional statement in the second loop and the value assignment if that
+            condition checks out. The three refers to the instantiation of the dictionary and number string variables,
+            and the final print statement.
+
+            Best case scenario, the first number found is the one with the longest time, and then the value of the
+            longest_time_number variable never has to be reassigned.
+
+            Worst case scenario, the numbers keep having increasingly longer times, then the value of the same variable
+            has to be reassigned once per input.
+
+- Task 3:   The solution has a linear relationship Big O Notation ranging between O(nlogn+6n+9) as a best case
+            scenario and O(nlogn+12n+9) as a worst case scenario, both of which simplify to O(n log n). The nine lines
+            not related to inputs are variable declarations/instantiations, sorting a list, or print statements. The n
+            log n portion of the notation occurs thanks to the built in sort function within Python.
+
+            The best case scenario is related to there not being any calls from Bangalore, and therefore does not have
+            to go through more conditional statements to determine what number they had called. Further down the line
+            this would reduce the number of times the system must iterate to print the codes called by Bangalore
+            numbers. Of course, if no calls are made at all, this would further decrease the amount of operations made,
+            yet then the system would be unnecessary.
+
+            The worst case scenario is related to every call being made from Bangalore, and if that call was made to a
+            fixed line (even more so if it is a fixed line from Bangalore) as it would require the most additional
+            amount of conditional statements. Once again, further down this line, it would also take up more iterations
+            to print all area codes called.
+
+- Task 4:   This final solution also has a Big O Notation of the linear type with a worst case scenario of
+            O(nlogn+8n+9), which reflects the iterations of numbers in calls and texts and final items to print, as well
+            as variable declarations, set operations, type casting, and as mentioned before sorting is responsible for
+            the n log n portion. Once again, it simplifies to O(n log n).
