@@ -1,0 +1,117 @@
+Alejandro Sanchez Uribe
+12 Dec 19
+
+Problem 1:  The data structures used for this problem were a Doubly Linked List and a Dictionary. The
+            Dictionary was used as a Hash Map, keeping track of the keys that were being pushed into the Doubly Linked
+            List, and having a quick search of values without needing to iterate through entries. The Doubly Linked List
+            was used in order to quickly have access to both the most recent and the least recent entries. This is due
+            to the fact that the least recent entry has to be tracked just in case it needs to be removed from the
+            cache, and in case of a new entry it can be easily linked to the latest entry without needing to iterate
+            through the entire list. The Doubly Linked List helped keep track of the order in which entries were used
+            and helped with the removal of the least recently used entry since that would be at the head of the list,
+            while the Dictionary was used to access these values and re-sort the Linked List by changing the next and
+            previous node values.
+
+            In terms of efficiency, caching makes time efficiency remain constant, since the number of inputs never have
+            a direct impact on how many iterations of an operation are made. Making an additional variable increases the
+            amount of space required, but it is also not variable as there is a limit to the amount of entries with its
+            capacity variable. Overall, this solution maintains a Big O Notation of O(1) for time. In terms of space,
+            the notation could be seen as O(n), where n is the capacity value for the cache. This value would determine
+            the size that the cache takes up in memory once full.
+
+Problem 2:  The output of the recursive function is placed in a python list for easy addition of single outputs and
+            integration of sub-lists returned from recursion. There is no need to be concerned for repeat entries since
+            paths cannot repeat, and the list allows for sorting before printing for test outputs.
+            The os.path library was used to access the directory and to determine if the path leads to a file or folder
+            (a needed condition to determine if recursion was to be required). The base case for recursion is finding a
+            file, since a file does not contain subdirectories.
+
+            The function amounts to O(n) for time complexity, for it has one instance of variable operations based on
+            how many subdirectories are found in the given path. In terms of space complexity, worst case scenario, the
+            output returns all file names (f) and must traverse through the recursive function, meaning that the call
+            stack increases per directory (d). Therefore the space complexity within a worst case scenario would be
+            O(f+d) or simply O(n).
+
+Problem 3:  The solution to this problem makes use of a tree data structure, which is created from the leaves up as per
+            the examples provided in the course's problem description. This data structure helped visualize how these
+            values were related, as well as providing an easy traversal through its branches in order to assign codes
+            to each character based on where they were positioned on the tree. Two Dictionaries were used within this
+            solution as hash maps, one to keep track of frequencies and then later easily access these values, while the
+            other was used to keep track of codes assigned to letters (using said letters as keys) in order to encode
+            characters without having to traverse through the tree each time.
+
+            Time complexity of the encode portion of the solution is related to the sorting of the branches as they are
+            generated, which is O(n log n), and popping from the sorted list O(1). To avoid having to pop the first item
+            of the list, which could greatly increase the time complexity of the solution, the branch list is sorted in
+            a reverse order, which would mean that the item to be popped would not require popping what is considered an
+            intermediate element. Therefore the overall time complexity of encoding is O(n log n).
+
+            The decoding portion was split into to functions. Rather than have one function that decodes a character and
+            then calling itself to continue on to the next one, one function is used to loop through and call the
+            character decoding function with a smaller input each time (the remaining encoded value). The character
+            decoder traverses through the tree depending on the value given and stops when it finds a letter. These
+            functions together have a time complexity of O(mn) as the number of iterations the outer decode function
+            runs for depends on the size of the encoded value (n), and the inner function traverses m number of nodes
+            until a letter is reached. This simplifies to O(n)
+
+            Space complexity of the encode portion is directly related to the amount of different letters in the
+            original sentence, as it influences the size of the freq_dict, the number of nodes and huffman characters
+            created, the cache (since each value is provided its own bucket) and the size of the encoded output. It also
+            influences the space used by the call stack. Therefore its space complexity is O(n)
+
+            Space complexity of the decoding portion is also related to the input size, which influences the decode
+            function in O(n), while it influences the outputs of the recursive calls of the decode_char function, making
+            the complexity for outputs O(n^2). The call stack is also a factor here due to recursion, which amounts to
+            an increase in complexity by the amount of characters in the encoded function, or O(c) where c is the number
+            of characters. The final complexity level is still its biggest modifier, O(n^2).
+
+Problem 4:  The solution for problem 4 was divided into two functions. The first one, de_group, is a recursive function
+            whose purpose is to go into all of the subgroups in a group and put all members into a single unified list.
+            The second function, is_user_in_group, first checks to see if the user is in its own list of users, and if
+            it isn't, it makes use of the de_group function to only perform a a single search for the existence of the
+            user (rather than performing a search within every subgroup). Due to the fact that the de_group function
+            still had to iterate through every subgroup, the solution's time complexity is O(n) for its worst case
+            scenario.
+
+            Space complexity for this solution depends on the existence of the user in the original group's list of
+            users. If found in this list, the space complexity is simply the boolean return of found or not found.
+            However if it must search through subgroups, then space complexity goes up by the output combination of all
+            subgroups (s), and increases through its use of the call stack which depends on the number of subgroups to
+            go through (n). So space complexity is O(s+n) or simply O(n)
+
+Problem 5:  The solution to this problem is based on a linked list and a dictionary. The linked list acts as a trail of
+            additions to the Chain, using the previous_hash attribute as a link to the previous block in the chain. The
+            dictionary serves as a hash map, in which the hash values of blocks are the key to the block itself. Each
+            hash value was given its own bucket, for time efficiency. With this hash map implementation, the list can be
+            traversed in constant time.
+
+            The list adds blocks on its head, resembling the structure of a Stack when items are obtained through the
+            pop() method. This design choice was made since there is already a direct reference to the previous item
+            through the previous_hash attribute, and each additional block could be an alteration of the previous one
+            therefore, traversing the list in reverse chronological order made the most sense. Appending is done in
+            constant time since it takes place at the head of the list and does not have to traverse the list. Printing
+            the chain however, does have to traverse and therefore the complexity is impacted by the amount of elements
+            in the list, or O(n).
+
+            In terms of space complexity, the size occupied by the dictionary is directly linked to the number of
+            elements in the list. The space occupied by the list is also impacted directly by this, therefore the space
+            complexity of this solution is O(n).
+
+Problem 6:  Traversing though one linked list and checking each value independently with each value within the other
+            linked list would have had a complexity of O(mn), meaning m iterations for elements in linked list b for
+            every element in linked list a. Therefore, I tried maintaining a lower level of complexity by making use of
+            the Set data structure and its integrated functions within Python. By traversing each list and adding all
+            values to a different set, the level of complexity is maintained at O(n), n referring to the number of
+            elements in each linked list.
+
+            Meanwhile, the union and intersection methods work in O(n) time complexity. This is due to the fact that the
+            methods make use of at least one loop. The union method takes two input linked lists and generates two lists
+            using the llist_to_set method. This llist_to_set method uses a loop to add elements to a set. Then the union
+            method uses a single for loop to append from a list to a linked list thought the append method in the linked
+            list class. Therefore this has an overall time complexity of O(n^2) for union.
+
+            The time complexity of the intersection method is the same complexity, as it also contains a nested loop
+            when adding elements to a newly generated linked list.
+
+            Space complexity for both are related to the size of the linked list, which is dependent on the amount of
+            elements in the input linked lists (m) and (n), which comes to O(m+n) or O(n)
